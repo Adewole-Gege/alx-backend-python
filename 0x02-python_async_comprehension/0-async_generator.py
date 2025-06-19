@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-
+'''Module that provides an async generator
+for yielding random floats.'''
 import asyncio
+import random
+from typing import Generator
 
-async_generator = __import__('0-async_generator').async_generator
 
-async def print_yielded_values():
-    result = []
-    async for i in async_generator():
-        result.append(i)
-    print(result)
-
-asyncio.run(print_yielded_values())
+async def async_generator() -> Generator[float, None, None]:
+    '''Yield a random float between 0
+    and 10 every second for 10 iterations.'''
+    for _ in range(10):
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
